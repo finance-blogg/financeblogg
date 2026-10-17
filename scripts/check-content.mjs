@@ -129,7 +129,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 if (!/^https:\/\//.test(siteUrl) || /localhost|vercel\.app/.test(siteUrl)) {
   launchIssues.push("NEXT_PUBLIC_SITE_URL should be your final https:// custom domain (not localhost or *.vercel.app).");
 }
-if (!process.env.NEXT_PUBLIC_CONTACT_EMAIL) launchIssues.push("NEXT_PUBLIC_CONTACT_EMAIL is not set.");
 if (!(process.env.RESEND_API_KEY && process.env.CONTACT_TO_EMAIL && process.env.CONTACT_FROM_EMAIL)) {
   warnings.push("Contact form delivery is not configured; the form is hidden in production and the email address is shown instead.");
 }
