@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  --color-navy-50: #f2f5fa;
+  --color-navy-100: #e3e9f3;
+  --color-navy-200: #c6d2e6;
+  --color-navy-300: #9cb0d1;
+  --color-navy-400: #6b86b4;
+  --color-navy-500: #4a6699;
+  --color-navy-600: #37507f;
+  --color-navy-700: #2b3f66;
+  --color-navy-800: #1f2f4f;
+  --color-navy-900: #142039;
+  --color-navy-950: #0b1426;
+
+  --color-leaf-50: #effaf3;
+  --color-leaf-100: #d8f2e1;
+  --color-leaf-200: #b3e4c6;
+  --color-leaf-500: #2f9e5f;
+  --color-leaf-600: #1f8049;
+  --color-leaf-700: #19663c;
+  --color-leaf-800: #175233;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-navy-900 antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-leaf-600;
+  }
+
+  ::selection {
+    @apply bg-leaf-100 text-navy-950;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.12em] text-leaf-700 uppercase;
+  }
+
+  .link-underline {
+    @apply underline decoration-navy-200 underline-offset-4 transition-colors hover:decoration-leaf-600;
+  }
+
+  /* Article typography */
+  .article-prose {
+    @apply prose prose-lg max-w-none text-navy-800
+      prose-headings:font-serif prose-headings:text-navy-950 prose-headings:font-semibold
+      prose-h2:mt-12 prose-h2:mb-4 prose-h2:text-2xl sm:prose-h2:text-[1.75rem]
+      prose-h3:mt-8 prose-h3:text-xl
+      prose-p:leading-relaxed
+      prose-a:text-leaf-700 prose-a:underline-offset-4 prose-a:decoration-leaf-200 hover:prose-a:decoration-leaf-600
+      prose-strong:text-navy-950
+      prose-li:my-1 prose-li:marker:text-leaf-600
+      prose-blockquote:border-l-leaf-500 prose-blockquote:text-navy-700 prose-blockquote:not-italic
+      prose-th:text-navy-950 prose-td:align-top
+      prose-hr:border-navy-100;
+  }
+
+  .article-prose h2,
+  .article-prose h3 {
+    scroll-margin-top: 6rem;
+  }
+
+  .article-prose table {
+    @apply block w-full overflow-x-auto text-base sm:table;
+  }
+
+  .article-prose thead {
+    @apply border-b-2 border-navy-200 bg-navy-50;
+  }
+
+  .article-prose th,
+  .article-prose td {
+    @apply px-3 py-2;
+  }
+
+  .callout-body a {
+    @apply text-leaf-700 underline underline-offset-2;
+  }
+  .callout-body strong {
+    @apply text-navy-950;
+  }
+  .callout-body ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+  .callout-body ol {
+    @apply list-decimal space-y-1 pl-5;
+  }
+  .callout-body table {
+    @apply block w-full overflow-x-auto text-sm sm:table;
+  }
+  .callout-body th {
+    @apply border-b border-navy-200 px-2 py-1.5 text-left font-semibold text-navy-950;
+  }
+  .callout-body td {
+    @apply border-b border-navy-100 px-2 py-1.5 align-top;
+  }
+
+  /* Hide an ad container entirely when Google reports no ad was filled. */
+  .ad-slot:has(ins[data-ad-status="unfilled"]) {
+    display: none;
+  }
+}

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f2f5fa"/>
+<stop offset="1" stop-color="#e3e9f3"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="1080" cy="90" r="190" fill="#e3e9f3"/>
+<circle cx="110" cy="590" r="150" fill="#e3e9f3"/>
+<rect x="80" y="70" width="1040" height="490" rx="28" fill="#ffffff" stroke="#c6d2e6" stroke-width="2"/>
+<rect x="80" y="70" width="14" height="490" rx="7" fill="#2f9e5f"/>
+<g transform="translate(200 130)">
+<rect x="0" y="0" width="560" height="360" rx="18" fill="#e3e9f3"/>
+<polyline points="40,60 140,110 240,165 340,220 440,270 520,300" fill="none" stroke="#142039" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="40" cy="60" r="12" fill="#2f9e5f"/><circle cx="140" cy="110" r="12" fill="#2f9e5f"/><circle cx="240" cy="165" r="12" fill="#2f9e5f"/><circle cx="340" cy="220" r="12" fill="#2f9e5f"/><circle cx="440" cy="270" r="12" fill="#2f9e5f"/><circle cx="520" cy="300" r="12" fill="#2f9e5f"/>
+</g>
+<g transform="translate(830 200)">
+<circle cx="60" cy="40" r="40" fill="none" stroke="#142039" stroke-width="16"/>
+<circle cx="180" cy="200" r="40" fill="none" stroke="#142039" stroke-width="16"/>
+<path d="M200 10 L40 230" stroke="#2f9e5f" stroke-width="20" stroke-linecap="round"/>
+</g>
+</svg>

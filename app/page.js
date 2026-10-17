@@ -1,0 +1,213 @@
+import Link from "next/link";
+import ArticleCard from "@/components/article/ArticleCard";
+import FeaturedImage from "@/components/article/FeaturedImage";
+import CategoryBadge from "@/components/article/CategoryBadge";
+import Sidebar from "@/components/layout/Sidebar";
+import SearchForm from "@/components/search/SearchForm";
+import AdSlot from "@/components/ads/AdSlot";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  getAllArticles,
+  getArticlesByCategory,
+  getAuthor,
+  getCategoriesWithCounts,
+  getFeaturedArticle,
+  getPopularArticles,
+} from "@/lib/content";
+import { categories } from "@/lib/categories";
+import { formatDate } from "@/lib/format";
+import { siteConfig } from "@/lib/site";
+import { organizationJsonLd, pageMetadata, websiteJsonLd } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: { absolute: `${siteConfig.name}: ${siteConfig.tagline}` },
+  description: siteConfig.description,
+  path: "/",
+});
+
+function SectionHeading({ id, children, href, linkLabel }) {
+  return (
+    <div className="mb-6 flex items-end justify-between gap-4 border-b border-navy-100 pb-3">
+      <h2 id={id} className="font-serif text-2xl font-semibold text-navy-950">
+        {children}
+      </h2>
+      {href && (
+        <Link href={href} className="shrink-0 text-sm font-medium text-leaf-700 hover:underline">
+          {linkLabel}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const featured = getFeaturedArticle();
+  const all = getAllArticles();
+  const latest = all.filter((a) => a.slug !== featured?.slug).slice(0, 6);
+  const popular = getPopularArticles(5);
+  const featuredAuthor = featured ? getAuthor(featured.author) : null;
+  const shown = new Set([featured?.slug, ...latest.map((a) => a.slug)]);
+  const categorySections = categories
+    .map((c) => ({
+      category: c,
+      articles: getArticlesByCategory(c.slug)
+        .filter((a) => !shown.has(a.slug))
+        .slice(0, 3),
+    }))
+    .filter((s) => s.articles.length > 0);
+  const topics = getCategoriesWithCounts().filter((c) => c.count > 0);
+
+  return (
+    <>
+      <JsonLd data={organizationJsonLd()} />
+      <JsonLd data={websiteJsonLd()} />
+
+      <h1 className="sr-only">
+        {siteConfig.name}: {siteConfig.tagline}
+      </h1>
+
+      {featured && (
+        <section aria-labelledby="featured-heading" className="border-b border-navy-100 bg-gradient-to-b from-navy-50/70 to-white">
+          <div className="container-page grid gap-8 py-10 lg:grid-cols-12 lg:gap-12 lg:py-14">
+            <div className="lg:col-span-7">
+              <Link href={`/blog/${featured.slug}`} tabIndex={-1} aria-hidden="true" className="block overflow-hidden rounded-xl shadow-sm ring-1 ring-navy-100">
+                <FeaturedImage image={featured.image} priority sizes="(min-width: 1024px) 640px, 100vw" />
+              </Link>
+            </div>
+            <div className="flex flex-col justify-center lg:col-span-5">
+              <p className="eyebrow">Featured explainer</p>
+              <div className="mt-3">
+                <CategoryBadge slug={featured.category} />
+              </div>
+              <h2 id="featured-heading" className="mt-2 font-serif text-3xl leading-tight font-semibold text-navy-950 sm:text-4xl">
+                <Link href={`/blog/${featured.slug}`} className="hover:text-leaf-700">
+                  {featured.title}
+                </Link>
+              </h2>
+              {featured.subtitle && <p className="mt-4 text-lg leading-relaxed text-navy-600">{featured.subtitle}</p>}
+              <p className="mt-4 text-sm text-navy-500">
+                {featuredAuthor && <>By {featuredAuthor.name} · </>}
+                <time dateTime={featured.date}>{formatDate(featured.date)}</time> · {featured.readingMinutes} min read
+              </p>
+              <div className="mt-6">
+                <Link
+                  href={`/blog/${featured.slug}`}
+                  className="inline-flex items-center gap-2 rounded-md bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800"
+                >
+                  Read the article
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section aria-label="Search articles" className="border-b border-navy-100">
+        <div className="container-page flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="font-serif text-xl font-semibold text-navy-950">Looking for something specific?</p>
+            <p className="text-sm text-navy-600">Search our explainers or filter by topic.</p>
+          </div>
+          <SearchForm id="home-search" showCategory className="md:max-w-xl" />
+        </div>
+      </section>
+
+      <div className="container-page mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="min-w-0 space-y-16">
+          {latest.length > 0 && (
+            <section aria-labelledby="latest-heading">
+              <SectionHeading id="latest-heading" href="/blog" linkLabel="All articles →">
+                Latest articles
+              </SectionHeading>
+              <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+                {latest.map((a) => (
+                  <ArticleCard key={a.slug} article={a} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {popular.length > 0 && (
+            <section aria-labelledby="popular-heading">
+              <SectionHeading id="popular-heading">Most read</SectionHeading>
+              <ol className="space-y-5">
+                {popular.map((a, i) => (
+                  <li key={a.slug} className="flex gap-4">
+                    <span className="font-serif text-3xl font-semibold text-navy-200" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <ArticleCard article={a} variant="compact" />
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          <AdSlot placement="homeFeed" />
+
+          {topics.length > 0 && (
+            <section aria-labelledby="topics-heading">
+              <SectionHeading id="topics-heading">Browse by topic</SectionHeading>
+              <ul className="grid gap-4 sm:grid-cols-2">
+                {topics.map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      href={`/category/${c.slug}`}
+                      className="group block h-full rounded-lg border border-navy-100 p-5 transition-colors hover:border-leaf-500 hover:bg-leaf-50/40"
+                    >
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="font-serif text-lg font-semibold text-navy-950 group-hover:text-leaf-700">{c.name}</span>
+                        <span className="shrink-0 text-xs text-navy-500">
+                          {c.count} {c.count === 1 ? "article" : "articles"}
+                        </span>
+                      </span>
+                      <span className="mt-1 block text-sm leading-relaxed text-navy-600">{c.description}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {categorySections.map(({ category, articles }) => (
+            <section key={category.slug} aria-labelledby={`cat-${category.slug}`}>
+              <SectionHeading id={`cat-${category.slug}`} href={`/category/${category.slug}`} linkLabel={`All ${category.shortName} →`}>
+                More in {category.name}
+              </SectionHeading>
+              <p className="-mt-2 mb-6 text-[0.95rem] text-navy-600">{category.description}</p>
+              <div className="space-y-8">
+                {articles.map((a) => (
+                  <ArticleCard key={a.slug} article={a} variant="horizontal" />
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <section aria-labelledby="standards-heading" className="rounded-xl border border-navy-100 bg-navy-50/60 p-6 sm:p-8">
+            <h2 id="standards-heading" className="font-serif text-2xl font-semibold text-navy-950">
+              How we work
+            </h2>
+            <p className="mt-3 max-w-2xl leading-relaxed text-navy-700">
+              We write educational explainers, not tips or personalised advice. Articles link to official
+              sources such as the RBI, SEBI, IRDAI and the Income Tax Department, and we correct errors
+              openly when we find them.
+            </p>
+            <ul className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
+              <li><Link href="/editorial-policy" className="rounded-full bg-white px-4 py-2 text-navy-800 ring-1 ring-navy-200 hover:text-leaf-700">Editorial policy</Link></li>
+              <li><Link href="/corrections-policy" className="rounded-full bg-white px-4 py-2 text-navy-800 ring-1 ring-navy-200 hover:text-leaf-700">Corrections policy</Link></li>
+              <li><Link href="/disclaimer" className="rounded-full bg-white px-4 py-2 text-navy-800 ring-1 ring-navy-200 hover:text-leaf-700">Disclaimer</Link></li>
+              <li><Link href="/about" className="rounded-full bg-white px-4 py-2 text-navy-800 ring-1 ring-navy-200 hover:text-leaf-700">About us</Link></li>
+            </ul>
+          </section>
+        </div>
+
+        <aside aria-label="Sidebar" className="hidden lg:block">
+          <div className="sticky top-32">
+            <Sidebar />
+          </div>
+        </aside>
+      </div>
+    </>
+  );
+}

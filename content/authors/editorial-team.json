@@ -1,0 +1,16 @@
+{
+  "name": "Rupee Ledger Editorial Team",
+  "role": "Editorial Team",
+  "isOrganization": true,
+  "bio": "The Rupee Ledger editorial team researches and writes educational explainers on personal finance in India. Articles are based on official sources such as the Reserve Bank of India, SEBI, IRDAI and the Income Tax Department, and are updated when rules change.",
+  "expertise": [
+    "Budgeting and saving",
+    "Banking basics",
+    "Credit and loans",
+    "Mutual fund concepts",
+    "Health insurance terms",
+    "Income tax basics"
+  ],
+  "credentials": [],
+  "links": {}
+}

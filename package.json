@@ -1,0 +1,32 @@
+{
+  "name": "financeblogg",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "check:content": "node scripts/check-content.mjs",
+    "check:launch": "node scripts/check-content.mjs --launch",
+    "check:links": "node scripts/check-links.mjs"
+  },
+  "dependencies": {
+    "github-slugger": "^2.0.0",
+    "next": "16.4.2",
+    "next-mdx-remote": "^6.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "server-only": "^0.0.1",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@tailwindcss/typography": "^0.5.20",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "tailwindcss": "^4"
+  }
+}

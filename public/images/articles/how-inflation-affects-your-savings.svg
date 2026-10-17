@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f2f5fa"/>
+<stop offset="1" stop-color="#e3e9f3"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="1080" cy="90" r="190" fill="#e3e9f3"/>
+<circle cx="110" cy="590" r="150" fill="#e3e9f3"/>
+<rect x="80" y="70" width="1040" height="490" rx="28" fill="#ffffff" stroke="#c6d2e6" stroke-width="2"/>
+<rect x="80" y="70" width="14" height="490" rx="7" fill="#e0a33b"/>
+<g transform="translate(230 170)">
+<circle cx="140" cy="140" r="140" fill="#f0c46d" stroke="#b7802a" stroke-width="8"/>
+<text x="85" y="200" font-family="Georgia, serif" font-size="170" font-weight="700" fill="#8a5a12">₹</text>
+</g>
+<g transform="translate(560 270)">
+<path d="M0 0 H90" stroke="#9cb0d1" stroke-width="12" stroke-linecap="round" stroke-dasharray="4 22"/>
+</g>
+<g transform="translate(700 250)">
+<circle cx="80" cy="80" r="80" fill="#f0c46d" stroke="#b7802a" stroke-width="6" opacity="0.9"/>
+<text x="48" y="118" font-family="Georgia, serif" font-size="100" font-weight="700" fill="#8a5a12">₹</text>
+</g>
+<g transform="translate(920 150)">
+<path d="M40 300 V40" stroke="#d26a5c" stroke-width="18" stroke-linecap="round"/>
+<path d="M0 80 L40 30 L80 80" fill="none" stroke="#d26a5c" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

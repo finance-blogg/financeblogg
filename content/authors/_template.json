@@ -1,0 +1,12 @@
+{
+  "_instructions": "Copy this file to content/authors/<slug>.json (no leading underscore) for each real writer or reviewer. Only list credentials the person actually holds and can verify, such as a SEBI registration number or a professional membership. Leave 'credentials' empty otherwise. Files starting with _ are ignored.",
+  "name": "Full Name",
+  "role": "Contributing Writer",
+  "isOrganization": false,
+  "bio": "Two or three factual sentences about the person's background and what they write about.",
+  "expertise": ["Topic one", "Topic two"],
+  "credentials": [],
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/example"
+  }
+}

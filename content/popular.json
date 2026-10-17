@@ -1,0 +1,6 @@
+{
+  "_instructions": "List article slugs in order of real readership, taken from Google Search Console or your analytics tool. Leave 'slugs' empty until you have real data; the 'Most read' section is hidden while it is empty.",
+  "source": "",
+  "lastUpdated": "",
+  "slugs": []
+}
