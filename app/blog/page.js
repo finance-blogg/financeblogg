@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "All Articles",
   description:
-    "Browse every Rupee Ledger explainer on budgeting, banking, credit, saving, mutual funds, insurance and tax in India.",
+    "Browse every FinanceBlogg explainer on budgeting, banking, credit, saving, mutual funds, insurance and tax in India.",
   path: "/blog",
 });
 

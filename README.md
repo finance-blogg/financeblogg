@@ -1,4 +1,4 @@
-# Rupee Ledger: Finance Education Blog
+# FinanceBlogg: Finance Education Blog
 
 An article-only personal finance publication for readers in India, built with Next.js (App Router), JavaScript and Tailwind CSS. Content lives in local MDX files, so there is no database to run.
 
@@ -141,7 +141,7 @@ The starter articles use simple SVG illustrations created for this project. You 
 
 ### Authors
 
-Copy `content/authors/_template.json` to `content/authors/<slug>.json`. List only real people and **only credentials they actually hold** (for example, a SEBI registration number). The starter profile is the "Rupee Ledger Editorial Team" with no claimed credentials.
+Copy `content/authors/_template.json` to `content/authors/<slug>.json`. List only real people and **only credentials they actually hold** (for example, a SEBI registration number). The starter profile is the "FinanceBlogg Editorial Team" with no claimed credentials.
 
 ### Popular articles
 
@@ -153,7 +153,7 @@ Copy `content/authors/_template.json` to `content/authors/<slug>.json`. List onl
 - **Policy pages:** edit `content/pages/*.mdx`. They use `<SiteName />`, `<OwnerName />`, `<ContactEmail />` and similar tags that pull from `lib/site.js` and environment variables, plus `<OwnerTodo>` markers for details only you can provide (email provider, data retention, review process, use of AI tools and so on).
 - The policy pages are **templates, not legal advice**. Have them reviewed by a qualified professional, make sure every statement matches how you actually run the site, then remove the notes.
 - Update the `updated:` date in a page's frontmatter whenever you change it.
-- The brand name "Rupee Ledger" is a placeholder. Check that any name you use does not infringe an existing trademark.
+- The brand name is "FinanceBlogg", set in `lib/site.js`. Check that it does not infringe an existing trademark.
 
 ## Environment variables
 

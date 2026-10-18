@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Search Articles",
-  description: "Search Rupee Ledger explainers by keyword and filter by category.",
+  description: "Search FinanceBlogg explainers by keyword and filter by category.",
   path: "/search",
   // Search result pages should not be indexed (thin, near-duplicate content).
   noIndex: true,
