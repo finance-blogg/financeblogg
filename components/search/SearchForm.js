@@ -1,9 +1,9 @@
-import { categories } from "@/lib/categories";
+import { getCategories } from "@/lib/content";
 
 /**
  * Plain GET form so search works without JavaScript and produces shareable URLs.
  */
-export default function SearchForm({
+export default async function SearchForm({
   defaultQuery = "",
   defaultCategory = "",
   showCategory = false,
@@ -11,6 +11,7 @@ export default function SearchForm({
   id = "site-search",
   className = "",
 }) {
+  const categories = showCategory ? await getCategories() : [];
   const inputSize = size === "lg" ? "h-12 text-base" : "h-10 text-sm";
   return (
     <form action="/search" method="get" role="search" className={`flex w-full gap-2 ${className}`}>

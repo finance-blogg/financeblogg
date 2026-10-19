@@ -1,10 +1,6 @@
 import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import AdSenseScript from "@/components/ads/AdSenseScript";
 import { siteConfig } from "@/lib/site";
-import { adsenseClient } from "@/lib/ads";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,26 +37,20 @@ export const metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
   ...(googleVerification ? { verification: { google: googleVerification } } : {}),
-  ...(adsenseClient ? { other: { "google-adsense-account": adsenseClient } } : {}),
 };
 
 export const viewport = {
   themeColor: "#142039",
 };
 
+/**
+ * Shared document shell. Public chrome (header, footer, AdSense) lives in
+ * app/(site)/layout.js so it never loads on /admin pages.
+ */
 export default function RootLayout({ children }) {
   return (
     <html lang="en-IN" className={`${inter.variable} ${sourceSerif.variable}`}>
-      <head>
-        <AdSenseScript />
-      </head>
-      <body className="flex min-h-screen flex-col">
-        <Header />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <body className="flex min-h-screen flex-col">{children}</body>
     </html>
   );
 }

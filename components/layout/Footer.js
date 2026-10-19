@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { LogoMark } from "./Logo";
 import { legalNav } from "./nav-links";
-import { categories } from "@/lib/categories";
+import { getCategories } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
 async function CopyrightYear() {
@@ -11,7 +11,8 @@ async function CopyrightYear() {
   return <>{new Date().getFullYear()}</>;
 }
 
-export default function Footer() {
+export default async function Footer() {
+  const categories = await getCategories();
   return (
     <footer className="mt-20 border-t border-navy-100 bg-navy-950 text-navy-200">
       <div className="container-page grid gap-10 py-14 md:grid-cols-12">

@@ -6,7 +6,8 @@ export default function robots() {
     return { rules: [{ userAgent: "*", disallow: "/" }] };
   }
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    // The dashboard is also noindex and login-protected; this just saves crawl budget.
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/api/"] }],
     sitemap: absoluteUrl("/sitemap.xml"),
   };
 }

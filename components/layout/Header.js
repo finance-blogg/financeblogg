@@ -2,9 +2,10 @@ import Link from "next/link";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import { primaryNav } from "./nav-links";
-import { categories } from "@/lib/categories";
+import { getCategories } from "@/lib/content";
 
-export default function Header() {
+export default async function Header() {
+  const categories = await getCategories();
   return (
     <header className="sticky top-0 z-50 border-b border-navy-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <a

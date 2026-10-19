@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# CMS exports and import backups (may contain private drafts)
+/backups/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

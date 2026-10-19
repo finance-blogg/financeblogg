@@ -9,13 +9,23 @@ export default function ArticleMeta({ article, author }) {
       <div className="text-sm text-navy-600">
         <p>
           By{" "}
-          <Link href={`/authors/${author.slug}`} className="font-medium text-navy-900 hover:text-leaf-700">
-            {author.name}
-          </Link>
+          {author.slug ? (
+            <Link href={`/authors/${author.slug}`} className="font-medium text-navy-900 hover:text-leaf-700">
+              {author.name}
+            </Link>
+          ) : (
+            <span className="font-medium text-navy-900">{author.name}</span>
+          )}
         </p>
         <p className="flex flex-wrap gap-x-2">
           <span>
-            Published <time dateTime={article.date}>{formatDate(article.date)}</time>
+            {article.date ? (
+              <>
+                Published <time dateTime={article.date}>{formatDate(article.date)}</time>
+              </>
+            ) : (
+              "Not yet published"
+            )}
           </span>
           {article.updated && article.updated !== article.date && (
             <>

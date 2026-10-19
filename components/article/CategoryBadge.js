@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getCategory } from "@/lib/categories";
+import { getCategory } from "@/lib/content";
 
-export default function CategoryBadge({ slug, link = true }) {
-  const category = getCategory(slug);
+export default async function CategoryBadge({ slug, link = true }) {
+  const category = slug ? await getCategory(slug) : null;
   if (!category) return null;
   const className =
     "inline-block text-xs font-semibold tracking-[0.1em] text-leaf-700 uppercase";

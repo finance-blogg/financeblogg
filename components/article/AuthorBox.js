@@ -19,6 +19,7 @@ export function AuthorAvatar({ author, size = "h-14 w-14" }) {
 }
 
 export default function AuthorBox({ author }) {
+  if (!author?.slug) return null;
   return (
     <section aria-labelledby="author-heading" className="mt-12 flex gap-4 rounded-lg border border-navy-100 p-5 sm:p-6">
       <AuthorAvatar author={author} />

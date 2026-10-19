@@ -3,7 +3,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 /** items: [{ name, href? }]. The last item is the current page. */
-export default function Breadcrumbs({ items }) {
+export default function Breadcrumbs({ items, structuredData = true }) {
   const all = [{ name: "Home", href: "/" }, ...items];
   return (
     <>
@@ -28,7 +28,7 @@ export default function Breadcrumbs({ items }) {
           })}
         </ol>
       </nav>
-      <JsonLd data={breadcrumbJsonLd(all)} />
+      {structuredData && <JsonLd data={breadcrumbJsonLd(all)} />}
     </>
   );
 }

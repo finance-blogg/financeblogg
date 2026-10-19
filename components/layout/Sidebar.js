@@ -4,11 +4,10 @@ import AdSlot from "@/components/ads/AdSlot";
 import NewsletterCta from "@/components/NewsletterCta";
 import { getAllArticles, getCategoriesWithCounts } from "@/lib/content";
 
-export default function Sidebar({ excludeSlug }) {
-  const recent = getAllArticles()
-    .filter((a) => a.slug !== excludeSlug)
-    .slice(0, 5);
-  const categories = getCategoriesWithCounts().filter((c) => c.count > 0);
+export default async function Sidebar({ excludeSlug }) {
+  const [all, withCounts] = await Promise.all([getAllArticles(), getCategoriesWithCounts()]);
+  const recent = all.filter((a) => a.slug !== excludeSlug).slice(0, 5);
+  const categories = withCounts.filter((c) => c.count > 0);
 
   return (
     <div className="space-y-10">

@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { submitContact } from "@/app/contact/actions";
+import { submitContact } from "@/app/(site)/contact/actions";
 import { CONTACT_LIMITS, CONTACT_SUBJECTS } from "@/lib/contact";
 
 const initialState = { status: "idle", message: "", errors: {}, values: {} };

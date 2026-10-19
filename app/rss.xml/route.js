@@ -1,7 +1,6 @@
-import { getAllArticles, getAuthor } from "@/lib/content";
-import { getCategory } from "@/lib/categories";
-import { toIsoDate } from "@/lib/format";
+import { getAllArticles, getAllAuthors, getCategories } from "@/lib/content";
 import { absoluteUrl, siteConfig } from "@/lib/site";
+import { articleDates } from "@/lib/seo";
 
 function escapeXml(value) {
   return String(value)
@@ -12,28 +11,29 @@ function escapeXml(value) {
     .replace(/'/g, "&apos;");
 }
 
-export function GET() {
-  const articles = getAllArticles()
-    .filter((a) => a.status === "published")
-    .slice(0, 50);
+export async function GET() {
+  const [all, authors, categories] = await Promise.all([getAllArticles(), getAllAuthors(), getCategories()]);
+  const authorBySlug = new Map(authors.map((a) => [a.slug, a]));
+  const categoryBySlug = new Map(categories.map((c) => [c.slug, c]));
+  const articles = all.filter((a) => a.status === "published").slice(0, 50);
 
   const items = articles
     .map((a) => {
       const url = absoluteUrl(`/blog/${a.slug}`);
-      const author = getAuthor(a.author);
+      const author = authorBySlug.get(a.author);
       return `    <item>
       <title>${escapeXml(a.title)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <description>${escapeXml(a.description)}</description>
-      <pubDate>${new Date(toIsoDate(a.date)).toUTCString()}</pubDate>
-      <category>${escapeXml(getCategory(a.category)?.name || "")}</category>
+      <pubDate>${new Date(articleDates(a).published).toUTCString()}</pubDate>
+      <category>${escapeXml(categoryBySlug.get(a.category)?.name || "")}</category>
       <dc:creator>${escapeXml(author?.name || siteConfig.name)}</dc:creator>
     </item>`;
     })
     .join("\n");
 
-  const lastBuild = articles[0] ? new Date(toIsoDate(articles[0].updated || articles[0].date)).toUTCString() : "";
+  const lastBuild = articles[0] ? new Date(articleDates(articles[0]).modified).toUTCString() : "";
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
