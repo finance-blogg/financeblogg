@@ -44,7 +44,7 @@ export const viewport = {
 };
 
 /**
- * Shared document shell. Public chrome (header, footer, AdSense) lives in
+ * Shared document shell. Public chrome (header, footer, AdSense, Analytics) lives in
  * app/(site)/layout.js so it never loads on /admin pages.
  */
 export default function RootLayout({ children }) {
