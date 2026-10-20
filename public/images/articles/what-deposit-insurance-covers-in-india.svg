@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f2f5fa"/>
+<stop offset="1" stop-color="#e3e9f3"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="1080" cy="90" r="190" fill="#e3e9f3"/>
+<circle cx="110" cy="590" r="150" fill="#e3e9f3"/>
+<rect x="80" y="70" width="1040" height="490" rx="28" fill="#ffffff" stroke="#c6d2e6" stroke-width="2"/>
+<rect x="80" y="70" width="14" height="490" rx="7" fill="#2f9e5f"/>
+<g transform="translate(200 140)">
+<rect x="40" y="160" width="320" height="200" rx="12" fill="#e3e9f3"/>
+<rect x="80" y="200" width="60" height="80" rx="8" fill="#ffffff" stroke="#c6d2e6" stroke-width="3"/>
+<rect x="170" y="200" width="60" height="80" rx="8" fill="#ffffff" stroke="#c6d2e6" stroke-width="3"/>
+<rect x="260" y="200" width="60" height="80" rx="8" fill="#ffffff" stroke="#c6d2e6" stroke-width="3"/>
+<polygon points="20,160 200,70 380,160" fill="#142039"/>
+<rect x="170" y="280" width="60" height="80" fill="#9cb0d1"/>
+</g>
+<g transform="translate(680 150)">
+<path d="M160 20 L280 70 L280 170 C280 230 220 280 160 300 C100 280 40 230 40 170 L40 70 Z" fill="#2f9e5f"/>
+<path d="M160 50 L250 90 L250 168 C250 214 206 254 160 270 C114 254 70 214 70 168 L70 90 Z" fill="#ffffff"/>
+<circle cx="160" cy="150" r="36" fill="#142039"/>
+<text x="160" y="164" text-anchor="middle" font-family="Georgia, serif" font-size="32" fill="#ffffff">¹</text>
+</g>
+</svg>

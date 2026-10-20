@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f2f5fa"/>
+<stop offset="1" stop-color="#e3e9f3"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="1080" cy="90" r="190" fill="#e3e9f3"/>
+<circle cx="110" cy="590" r="150" fill="#e3e9f3"/>
+<rect x="80" y="70" width="1040" height="490" rx="28" fill="#ffffff" stroke="#c6d2e6" stroke-width="2"/>
+<rect x="80" y="70" width="14" height="490" rx="7" fill="#2f9e5f"/>
+<g transform="translate(180 180)">
+<rect x="0" y="80" width="860" height="36" rx="18" fill="#e3e9f3"/>
+<rect x="0" y="80" width="520" height="36" rx="18" fill="#142039"/>
+<rect x="0" y="80" width="280" height="36" rx="18" fill="#2f9e5f"/>
+<rect x="40" y="200" width="200" height="140" rx="16" fill="#e3e9f3"/>
+<rect x="280" y="200" width="200" height="140" rx="16" fill="#9cb0d1"/>
+<rect x="520" y="200" width="200" height="140" rx="16" fill="#142039"/>
+<polygon points="820,40 860,98 780,98" fill="#2f9e5f"/>
+</g>
+</svg>
