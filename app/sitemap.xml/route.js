@@ -3,6 +3,14 @@ import { toIsoDate } from "@/lib/format";
 import { getAllArticles, getAllAuthors, getArticlesPage, getCategoriesWithCounts, getPage } from "@/lib/content";
 import { articleDates } from "@/lib/seo";
 
+/**
+ * Served as a Route Handler (not app/sitemap.js) so publish/unpublish can
+ * refresh it. Next.js 16 still emits metadata `sitemap.js` as a static file
+ * at build time, which ignores revalidatePath/updateTag — that is why
+ * admin-published articles were missing until the next deploy.
+ * See https://github.com/vercel/next.js/issues/99055
+ */
+
 const STATIC_PAGES = [
   ["about", "/about"],
   ["editorial-policy", "/editorial-policy"],
@@ -12,7 +20,32 @@ const STATIC_PAGES = [
   ["disclaimer", "/disclaimer"],
 ];
 
-export default async function sitemap() {
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function toLastmod(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : date.toISOString();
+}
+
+function urlEntry({ url, lastModified, changeFrequency, priority }) {
+  const lastmod = toLastmod(lastModified);
+  return `  <url>
+    <loc>${escapeXml(url)}</loc>${lastmod ? `\n    <lastmod>${escapeXml(lastmod)}</lastmod>` : ""}
+    <changefreq>${changeFrequency}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+}
+
+export async function GET() {
   const [all, authors, categories, { totalPages }] = await Promise.all([
     getAllArticles(),
     getAllAuthors(),
@@ -28,7 +61,7 @@ export default async function sitemap() {
   const lastModified = latest || undefined;
   const canonicalHere = (a) => !a.seo?.canonical || a.seo.canonical === absoluteUrl(`/blog/${a.slug}`);
 
-  return [
+  const entries = [
     { url: absoluteUrl("/"), lastModified, changeFrequency: "daily", priority: 1 },
     { url: absoluteUrl("/blog"), lastModified, changeFrequency: "daily", priority: 0.8 },
     ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
@@ -57,4 +90,14 @@ export default async function sitemap() {
       };
     }),
   ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries.map(urlEntry).join("\n")}
+</urlset>
+`;
+
+  return new Response(xml, {
+    headers: { "Content-Type": "application/xml; charset=utf-8" },
+  });
 }
