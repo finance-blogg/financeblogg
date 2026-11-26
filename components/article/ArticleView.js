@@ -11,6 +11,7 @@ import AuthorBox from "./AuthorBox";
 import RelatedArticles from "./RelatedArticles";
 import FinancialDisclaimer from "./FinancialDisclaimer";
 import ArticleBody from "./ArticleBody";
+import FaqSection from "./FaqSection";
 import AdSlot from "@/components/ads/AdSlot";
 
 const UNASSIGNED_AUTHOR = { slug: "", name: "Author not selected", role: "", bio: "" };
@@ -70,6 +71,8 @@ export default function ArticleView({ article, author, reviewer, category, relat
             </div>
 
             <FinancialDisclaimer className="mt-12" />
+
+            <FaqSection faqs={article.faq} />
 
             {article.tags.length > 0 && (
               <div className="mt-8">

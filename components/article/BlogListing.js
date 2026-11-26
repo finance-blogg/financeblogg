@@ -5,7 +5,10 @@ import CategoryFilter from "@/components/article/CategoryFilter";
 import Pagination from "@/components/article/Pagination";
 import SearchForm from "@/components/search/SearchForm";
 import AdSlot from "@/components/ads/AdSlot";
+import JsonLd from "@/components/seo/JsonLd";
 import { getArticlesPage, getCategoriesWithCounts } from "@/lib/content";
+import { absoluteUrl } from "@/lib/site";
+import { itemListJsonLd } from "@/lib/seo";
 
 /** The /blog listing; page 1 is /blog, later pages are /blog/page/N. */
 export default async function BlogListing({ page = 1 }) {
@@ -16,9 +19,17 @@ export default async function BlogListing({ page = 1 }) {
   const categories = withCounts.filter((c) => c.count > 0);
   const firstBatch = articles.slice(0, 6);
   const rest = articles.slice(6);
+  const listPath = current > 1 ? `/blog/page/${current}` : "/blog";
+  const listLd = itemListJsonLd({
+    name: current > 1 ? `All articles: page ${current}` : "All articles",
+    description: "Educational explainers on money topics that matter to Indian households, newest first.",
+    listPath,
+    items: articles.map((a) => ({ name: a.title, url: absoluteUrl(`/blog/${a.slug}`) })),
+  });
 
   return (
     <>
+      {listLd && <JsonLd data={listLd} />}
       <PageHeader
         title={current > 1 ? `All articles: page ${current}` : "All articles"}
         description="Educational explainers on money topics that matter to Indian households, newest first."

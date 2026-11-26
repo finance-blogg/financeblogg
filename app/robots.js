@@ -9,5 +9,6 @@ export default function robots() {
     // The dashboard is also noindex and login-protected; this just saves crawl budget.
     rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/api/"] }],
     sitemap: absoluteUrl("/sitemap.xml"),
+    host: absoluteUrl("/").replace(/\/$/, ""),
   };
 }

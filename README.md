@@ -495,13 +495,17 @@ If `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` are not all set
 ## SEO features
 
 - A unique `<title>` and meta description for every page, with canonical URLs built from `NEXT_PUBLIC_SITE_URL`.
+- Optional per-article `seo.title` / `seo.description` / `seo.canonical` in MDX frontmatter (and matching CMS fields).
+- Optional `faq` list in MDX frontmatter: rendered on the page and emitted as `FAQPage` JSON-LD.
 - Open Graph and Twitter card tags, with a generated 1200 × 630 image for each article and for the site.
 - `sitemap.xml` (published articles, non-empty categories, author and policy pages) and `robots.txt`.
-- Structured data: `Article` (author, publish and modified dates), `BreadcrumbList`, `Organization`, `WebSite` and `ProfilePage`.
-- RSS feed at `/rss.xml`.
+- Structured data: `Article` (author, dates, word count), `FAQPage`, `CollectionPage`/`ItemList` on listings, `BreadcrumbList`, `Organization`, `WebSite` and `ProfilePage`.
+- RSS feed at `/rss.xml` and a machine-readable `/llms.txt` summary for AI crawlers.
 - Clean URLs (`/blog/<slug>`, `/category/<slug>`), related articles and in-text links for internal linking.
 - Search result pages and empty category pages are `noindex`. Unknown URLs return a real 404 status.
 - One H1 per page, with a sequential heading structure.
+
+After deploy, verify the property in [Google Search Console](#google-search-console), submit `sitemap.xml`, and spot-check an article in Google’s Rich Results Test (Article + FAQ where present).
 
 ## Quality scripts
 

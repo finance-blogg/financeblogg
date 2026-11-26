@@ -4,7 +4,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import JsonLd from "@/components/seo/JsonLd";
 import { getArticle, getArticleSlugs, getAuthor, getCategory, getRelatedArticles } from "@/lib/content";
 import { absoluteUrl } from "@/lib/site";
-import { articleDates, articleJsonLd, pageMetadata } from "@/lib/seo";
+import { articleDates, articleJsonLd, faqPageJsonLd, pageMetadata } from "@/lib/seo";
 
 // Fully static output; unknown slugs render completely first, so notFound() returns a real 404.
 // Articles published later from the dashboard are generated on their first request and cached.
@@ -64,9 +64,12 @@ export default async function ArticlePage({ params }) {
     getRelatedArticles(article, 3),
   ]);
 
+  const faqLd = faqPageJsonLd(article.faq);
+
   return (
     <>
       <JsonLd data={articleJsonLd(article, author, category)} />
+      {faqLd && <JsonLd data={faqLd} />}
       <ArticleView
         article={article}
         author={author}

@@ -5,7 +5,10 @@ import ArticleCard from "@/components/article/ArticleCard";
 import CategoryFilter from "@/components/article/CategoryFilter";
 import Pagination from "@/components/article/Pagination";
 import AdSlot from "@/components/ads/AdSlot";
+import JsonLd from "@/components/seo/JsonLd";
 import { getArticlesPage, getCategoriesWithCounts } from "@/lib/content";
+import { absoluteUrl } from "@/lib/site";
+import { itemListJsonLd } from "@/lib/seo";
 
 export default async function CategoryListing({ category, page = 1 }) {
   const [{ articles, totalPages, page: current }, withCounts] = await Promise.all([
@@ -14,9 +17,20 @@ export default async function CategoryListing({ category, page = 1 }) {
   ]);
   const filterCategories = withCounts.filter((c) => c.count > 0 || c.slug === category.slug);
   const basePath = `/category/${category.slug}`;
+  const listPath = current > 1 ? `${basePath}/page/${current}` : basePath;
+  const listLd =
+    articles.length > 0
+      ? itemListJsonLd({
+          name: current > 1 ? `${category.name}: page ${current}` : category.name,
+          description: category.description,
+          listPath,
+          items: articles.map((a) => ({ name: a.title, url: absoluteUrl(`/blog/${a.slug}`) })),
+        })
+      : null;
 
   return (
     <>
+      {listLd && <JsonLd data={listLd} />}
       <PageHeader
         eyebrow="Category"
         title={current > 1 ? `${category.name}: page ${current}` : category.name}
