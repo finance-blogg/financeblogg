@@ -62,6 +62,7 @@ const nextConfig = {
     remotePatterns: supabaseImages,
   },
   experimental: {
+    agentUpgrade: "security",
     serverActions: {
       // Image uploads are limited to 4 MB; Vercel functions accept request bodies up to 4.5 MB.
       bodySizeLimit: "4.4mb",
